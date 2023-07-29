@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="text-center">Task History</h1>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">Action</th>
+                <th scope="col">Edited Element</th>
+                <th scope="col">Previous Value</th>
+                <th scope="col">Edited Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of historyLogs">
+                <td>{{ log.taskName }}</td>
+                <td>{{ log.action }}</td>
+                <td>{{ log.editedElement }}</td>
+                <td>{{ log.previousValue }}</td>
+                <td>{{ log.editedTime }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,514 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+/>
+<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
+<!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+</head>
+<body>
+<div class="card-header">
+  <h1 class="text-center">Task Management System</h1>
+</div>
+
+<!-- <div style="text-align: center;"> -->
+<!-- <button style="border: 0px; background-color:white ;" (click)="toggleFormVisibility()"><span id="boot-icon" class="bi bi-plus" style="font-size: 2rem; color: rgb(243, 156, 18);" onclick=""></span></button> -->
+<!-- <button style="border: 0px; background-color:white ;" (click)="toggleFormVisibility()"><span id="boot-icon" class="bi bi-plus" style="font-size: 3rem; color: rgb(243, 156, 18); font-weight:100"></span>Add a task</button> -->
+<!-- <div class="card-header bg-primary text-white">
+  <h1 class="text-center">Task Management System</h1>
+</div>
+</div> -->
+<div class="body">
+
+<div class="container">
+  <div class="ty">
+    <div class="">
+      <button
+        class="add_button"
+        style="border: 0px; background-color: white"
+        (click)="toggleFormVisibility()"
+      >
+        <span
+          id="boot-icon"
+          class="bi bi-plus"
+          style="font-size: 2rem; color: rgb(243, 156, 18)"
+        ></span>
+        <p class="task">Add a task</p>
+      </button>
+    </div>
+    <div class="">
+      <button
+        class="btn btn-primary-outline add_button"
+        id="downloadbutton"
+        #downloadButton
+        (click)="exportToCSV(downloadButton)"
+      >
+        <img id="gifimg" src="assets/images/download.gif" />
+        <p class="task">Download CSV</p>
+      </button>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card" *ngIf="isFormVisible">
+        <div class="card-body">
+          <form [formGroup]="newTodoForm" (ngSubmit)="addTask()" id="form">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                formControlName="title"
+                placeholder="Enter title"
+				ng-required="required"
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                formControlName="description"
+                rows="3"
+                placeholder="Enter description"
+				required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select class="form-control" id="status" formControlName="status" required>
+                <option value="Inprogress">In progress</option>
+                <option value="Todo">Todo</option>
+              </select>
+            </div>
+            <div class="form-group mr-3" (ngSubmit)="addTask()">
+              <label for="dueDate">Due Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dueDate"
+                formControlName="dueDate" required
+              />
+            </div>
+
+            <!-- Priority Dropdown -->
+            <div class="form-group" (ngSubmit)="addTask()">
+              <label for="priority">Priority</label>
+              <select
+                class="form-control"
+                formControlName="priority"
+                id="priority"
+				required
+              >
+                <option value="Highest">Highest</option>
+                <option value="Least">Least</option>
+              </select>
+            </div>
+            <br />
+            <!-- <button type="submit" class="btn btn-primary">Add Task</button> -->
+            <button class="button-57" role="button" type="submit">
+              <span class="text">Add Task</span><span>Task Added</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- <div class="mt-4">
+          <table class="table table-striped" >
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of taskList">
+                <td>{{ task.title }}</td>
+                <td> {{ task.description }}
+                <span class="badge badge-primary" style="color: black;">Priority: {{ task.priority }}</span><br>
+                
+                <span class="badge badge-secondary" style="color:black">Due Date: {{ task.dueDate }}</span>
+                </td>
+                <td>
+                  <span class="badge" [ngClass]="{'badge-warning': task.status === 'Inprogress', 'badge-info': task.status === 'Todo',}">
+                    {{ task.status }}
+                  </span>
+                </td>
+                <td>
+                    <!-- <button class="btn btn-success mr-2" (click)="markDone(task)">Mark Done</button>
+                    <button class="btn btn-danger mr-2" (click)="removeTask(task.id)">Remove</button>
+                    <td>
+                       ... (Other buttons as before) ... -->
+      <!-- <div *ngIf="selectedTask === task" [formGroup]="updateStatusForm">
+                        <select class="form-control" formControlName="status" (change)="saveStatus()">
+                          <option value="Inprogress">Inprogress</option>
+                          <option value="Todo">Todo</option>
+                          <option value="Delete">Delete</option>
+                        </select>
+                      </div>
+                      <button class="btn btn-secondary" (click)="updateStatus(task)" *ngIf="selectedTask !== task">Update Status</button> -->
+
+      <!-- </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> -->
+      <!-- <app-history [historyLogs]="taskHistoryLogs"></app-history> -->
+
+      <!-- <div class="form-group">
+    <label for="sortingOption">Sort By:</label>
+    <mat-select class="form-control" id="sortingOption" (change)="sortTasks($event)">
+      <mat-option value="status">Status</mat-option>
+      <mat-option value="priority">Priority</mat-option>
+      <mat-option value="dueDate">Due Date</mat-option>
+    </mat-select>
+  </div> -->
+
+      <!-- <i class="fa fa-download" aria-hidden="true"></i> -->
+	  <h3>List of Tasks</h3>
+
+      <div class="form-group">
+        <!-- <label for="sortingOption">Sort By:</label> -->
+        <i class="bi bi-sort-up">Sort Your Tasks By clicking below</i>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-sort-up"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
+          />
+        </svg>
+        <br />
+        <select
+          class="form-control"
+          id="sortingOption"
+          (change)="sortTasks($event)"
+        >
+          <option value="status">Status</option>
+          <option value="priority">Priority</option>
+          <option value="dueDate">Due Date</option>
+        </select>
+      </div>
+
+      <!-- Display tasks as expandable cards -->
+      <div class="mt-4">
+        <!-- <div class="row justify-content-center"> -->
+        <!-- <div class="col-lg-6 col-md-8 col-sm-10 col-12"> -->
+        <div class="card justitfy-content-center " *ngFor="let task of taskList">
+          <div
+            class=" progress ml-1 p-3 bg-info"
+            (click)="toggleDetails(task)"
+          >
+		  <div class="checkbox-wrapper-52 ">
+			<label for="todo-52" class="item">
+			  <input type="checkbox" id="todo-52" class="hidden" />
+			  <label for="todo-52" class="cbx">
+				<svg width="14px" height="12px" viewBox="0 0 14 12">
+				  <polyline points="1 7.6 5 11 13 1"></polyline>
+				</svg>
+			  </label>
+			  <label for="todo-52" class="mb-0 cbx-lbl" style="font-size: 20px;">{{
+				task.title
+			  }}</label>
+			</label>
+		  </div>
+            <div >
+
+              <span
+                class="badge  me-1"
+                [ngClass]="{'badge-warning': task.status === 'Inprogress', 'badge-info': task.status === 'Todo',}"
+              >
+                {{ task.status }}
+              </span>
+              <!-- <i class="bi bi-pencil-fill" (click)="toggleDetails(task)"></i> -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-fill me-1"
+                viewBox="0 0 16 16"
+				
+              >
+                <path
+                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                />
+              </svg>
+              <!-- <img src="https://th.bing.com/th/id/OIP.49mrY_25slimKSFTXg-KOgHaHa?w=217&h=217&c=7&r=0&o=5&dpr=1.3&pid=1.7" width="20vh" height="20vh" style="position: absolute; right:10%"> -->
+              <img class=" me-1"
+                src="/assets/images/delete.png"
+				width="25px"
+
+                (click)="removeTask(task.id)"
+              />
+              <!-- <div class="checkbox-wrapper-52">
+                <label for="todo-52" class="item">
+                  <input type="checkbox" id="todo-52" class="hidden" />
+                  <label for="todo-52" class="cbx">
+                    <svg width="14px" height="12px" viewBox="0 0 14 12">
+                      <polyline points="1 7.6 5 11 13 1"></polyline>
+                    </svg>
+                  </label>
+                  <label for="todo-52" class="mb-0 cbx-lbl">{{
+                    task.title
+                  }}</label>
+                </label>
+              </div> -->
+              <!-- </h5> -->
+            </div>
+          </div>
+          <div
+            class="card-body"
+            style="
+              background-image: linear-gradient(180deg, rgb(235, 96, 96), blue);
+            "
+            *ngIf="task.showDetails"
+          >
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Description:</strong> {{ task.description }}<br />
+                    <strong>Priority:</strong> {{ task.priority }}<br />
+                    <strong>Due Date:</strong>
+                    {{ task.dueDate | date : "medium" }}<br />
+                    <strong>Status:</strong> {{ task.status }}
+                    <!-- <button class="btn btn-success mr-2" (click)="markDone(task)">Mark Done</button> -->
+                    <!-- <div class="checkbox-wrapper-52">
+                  
+                </div> -->
+                    <!-- <button class="btn btn-danger mr-2" (click)="removeTask(task.id)">Remove</button> -->
+
+                    <!-- ... (Other buttons as before) ... -->
+                    <br />
+                    <div
+                      *ngIf="selectedTask === task"
+                      [formGroup]="updateStatusForm"
+                    >
+                      <mat-button-toggle-group
+                        appearance="legacy"
+                        name="fontStyle"
+                        aria-label="Font Style"
+                        formControlName="status"
+                        (change)="saveStatus()"
+                      >
+                        <mat-button-toggle value="Inprogress"
+                          >Inprogress</mat-button-toggle
+                        >
+                        <mat-button-toggle value="Todo">Todo</mat-button-toggle>
+                        <!-- <mat-button-toggle value="Delete">Delete</mat-button-toggle> -->
+                      </mat-button-toggle-group>
+                    </div>
+
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="updateStatus(task)"
+                      *ngIf="selectedTask !== task"
+                    >
+                      Update Status
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <style>
+      .add_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .checkbox-wrapper-52 input[type="checkbox"] {
+        visibility: hidden;
+        display: none;
+      }
+
+      .checkbox-wrapper-52 label {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        line-height: 1;
+      }
+
+      .checkbox-wrapper-52 *,
+      .checkbox-wrapper-52 ::after,
+      .checkbox-wrapper-52 ::before {
+        box-sizing: border-box;
+      }
+
+      .checkbox-wrapper-52 .item .cbx {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        border: 1px solid #02050c;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .checkbox-wrapper-52 .item .cbx svg {
+        position: relative;
+        top: -1px;
+        transform: scale(0);
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .checkbox-wrapper-52 .item .cbx svg polyline {
+        stroke-width: 2;
+        stroke: #18cda6;
+      }
+
+      .checkbox-wrapper-52 .item .cbx:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: #18cda6;
+        transform: scale(0);
+      }
+
+      .checkbox-wrapper-52 .item .cbx:after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 2px;
+        height: 2px;
+        border-radius: 2px;
+        box-shadow: 0 -18px 0 #18cda6, 12px -12px 0 #18cda6, 18px 0 0 #18cda6,
+          12px 12px 0 #18cda6, 0 18px 0 #18cda6, -12px 12px 0 #18cda6,
+          -18px 0 0 #18cda6, -12px -12px 0 #18cda6;
+        transform: scale(0);
+      }
+
+      .checkbox-wrapper-52 .item .cbx-lbl {
+        position: relative;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .checkbox-wrapper-52 .item .cbx-lbl:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #a99090;
+      }
+
+      .checkbox-wrapper-52 .item input {
+        display: none;
+      }
+
+      .checkbox-wrapper-52 .item input:checked + .cbx {
+        border-color: transparent;
+      }
+
+      .checkbox-wrapper-52 .item input:checked + .cbx svg {
+        transform: scale(1);
+        transition: all 0.4s ease;
+        transition-delay: 0.1s;
+      }
+
+      .checkbox-wrapper-52 .item input:checked + .cbx:before {
+        transform: scale(1);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .checkbox-wrapper-52 .item input:checked + .cbx:after {
+        transform: scale(1);
+        opacity: 0;
+        transition: all 0.6s ease;
+      }
+
+      .checkbox-wrapper-52 .item input:checked ~ .cbx-lbl {
+        color: #4825f4;
+      }
+
+      .checkbox-wrapper-52 .item input:checked ~ .cbx-lbl:after {
+        width: 100%;
+        transition: all 0.4s ease;
+      }
+
+      .heading {
+        margin-bottom: 0;
+        /* Remove bottom margin for the heading */
+      }
+
+      .btn {
+        margin-left: 3px;
+        /* Add some top margin to the button */
+      }
+      /* Create two equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px;
+        /* Should be removed. Only for demonstration */
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 600px) {
+        .column {
+          width: 100%;
+        }
+      }
+      .task {
+        line-height: 2rem;
+        margin-bottom: 0;
+      }
+      .ty {
+        display: flex;
+        justify-content: space-between;
+      }
+	  .progress{
+		display: flex;
+		justify-content: space-between;
+		height: 35px;
+		align-items: center;
+	  }
+    </style>
+<!-- </body> -->

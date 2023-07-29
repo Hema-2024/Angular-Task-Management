@@ -1,0 +1,122 @@
+/* Custom styles for badges */
+.badge {
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  /* Status-specific styles */
+  .badge-warning {
+    background-color: #ffc107; /* Yellow color for Inprogress status */
+    color: #000; /* Text color for Inprogress status */
+    margin-right: 0%;
+  }
+  
+  .badge-info {
+    background-color: #17a2b8; /* Blue color for Todo status */
+    color: #fff; /* Text color for Todo status */
+    margin-right: 0%;
+  }
+  
+  
+  .button-57 {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #18181a;
+    color: #18181a;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 15px;
+    padding: 18px 18px 17px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #17a2b8;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-57 span:first-child {
+    position: relative;
+    transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 10;
+  }
+  
+  .button-57 span:last-child {
+    color: white;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 100;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateY(225%) translateX(-50%);
+    height: 14px;
+    line-height: 13px;
+  }
+  
+  .button-57:after {
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    transform-origin: bottom center;
+    transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+    transform: skewY(9.3deg) scaleY(0);
+    z-index: 50;
+  }
+  
+  .button-57:hover:after {
+    transform-origin: bottom center;
+    transform: skewY(9.3deg) scaleY(2);
+  }
+  
+  .button-57:hover span:last-child {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 1;
+    transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+  }
+  .mt-4{
+    background: linear-gradient(-225deg, rgba(0,0,0,0.6) 50%, rgba(0,36,61,0.6) 80%);
+  }
+
+
+  /* Adjust form fields width */
+/* styles.css or your component's CSS file */
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.body{
+  background: linear-gradient(to bottom right,#A076F9 , #CD6688);
+  }
+  #body{
+    background: linear-gradient(to bottom right,#A076F9 , #CD6688);
+    /* background: linear-gradient(to bottom right,#4A55A2,#4FC0D0); */
+  }
